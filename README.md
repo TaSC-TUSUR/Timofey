@@ -4,4 +4,5 @@ Bulling neural network
 All information about the license is written in the LICENSE file
 -
 Андрей пиши намана
+-
 Кирилл, у вас в хоре все так разговаривают?
