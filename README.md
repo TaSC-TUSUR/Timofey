@@ -2,4 +2,5 @@
 Bulling neural network
 -
 All information about the license is written in the LICENSE file
+-
 Андрей пиши намана
