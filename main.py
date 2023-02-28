@@ -3,11 +3,18 @@ import matplotlib.pyplot as plt
 from tensorflow import keras
 from keras.layers import Dense, Flatten
 from keras.datasets import mnist
+from pprint import pprint
+
+from PIL import Image
+
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()  # Выгрузка баз данных мниста(70 000 рукописных цифр)
 
-x_train = x_train / 255  # Стандартизация данных, картинки у нас черно-белые,
-x_test = x_test / 255  # поэтому данные мы будем хранить как 0-черный, 1-белый
+x_train = x_train / 255 # Стандартизация данных, картинки у нас черно-белые,
+x_test = x_test / 255   # поэтому данные мы будем хранить как 0-черный, 1-белый
+
+# im = Image.fromarray(x_train[5])
+# im.show()
 
 # ----------------------------------------------------------
 # Далее мы записываем каждую цифру как массив из десяти
@@ -28,7 +35,7 @@ y_test_cat = keras.utils.to_categorical(y_test, 10)
 #
 model = keras.Sequential([
     Flatten(input_shape=(28, 28, 1)),  # Входной слой
-    Dense(units=128, activation='relu'), # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
+    Dense(units=128, activation='relu'),  # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
     Dense(units=10, activation='softmax') # Выходной слой состоит из 10 нейронов, тк каждый отвечает за свою цифру
 ])
 # ----------------------------------------------------------
@@ -42,10 +49,10 @@ model.compile(loss='categorical_crossentropy', optimizer=keras.optimizers.Adam()
 # ----------------------------------------------------------
 
 # ----------------------------------------------------------
-# Запуск процесса обучения
-# x_train - множество на котором тренируем
-# y_train_cat - ожидаемый результат (который хотим получить)
-# batch_size - количество картинок после которых коэффициенты будут пересмотрены
+# Запуск процесса обучения.
+# x_train - множество на котором тренируем.
+# y_train_cat - ожидаемый результат (который хотим получить).
+# batch_size - количество картинок после которых коэффициенты будут пересмотрены.
 # epochs - количество эпох обучения
 # validation_split - выбор сколько % картинок пойдут на валидацию (они уйдут на evaluate)
 model.fit(x_train, y_train_cat, batch_size=32, epochs=5, validation_split=0.2)
@@ -61,11 +68,13 @@ print("\n")
 # ----------------------------------------------------------
 # Тест конкретной цифры
 n = 1  # id в выборке mnist
-x = np.expand_dims(x_test[n], axis=0)
+im = Image.open('images/assets/test.jpg')
+data = np.array(im)
+x = np.expand_dims(data, axis=0)
 res = model.predict(x)
 print(res)
 print(np.argmax(res))
-plt.imshow(x_test[n], cmap=plt.cm.binary)
+plt.imshow(data, cmap=plt.cm.binary)
 plt.show()
 # ----------------------------------------------------------
 
