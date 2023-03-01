@@ -9,6 +9,8 @@ from PIL import Image, ImageOps
 
 def convert_im(path):
     n = 150 #Ползунок для изменения вхождения чёрного
+    τ = 40 # Допуск цвета
+
     img = Image.open(path)
     arr = np.array(img)
 
@@ -18,9 +20,9 @@ def convert_im(path):
     for i in range(len(arr)):
         for j in range(len(arr[0])):
             r, g, b = map(int, arr[i, j])
-            if abs(r - g) <= 30 \
-                and abs(r - b) <= 30\
-                and abs(g - b) <= 30\
+            if abs(r - g) <= τ \
+                and abs(r - b) <= τ\
+                and abs(g - b) <= τ\
                 and sum(arr[i, j]) > n: # Проверим ещё черный цвет
 
                     arr[i, j] = [255, 255, 255]
@@ -32,6 +34,9 @@ def convert_im(path):
     img = img.convert('L') # Делаем чб
 
     img.save('images/assets/test.jpg')
+    arr = np.array(img)
+    print(arr)
+    return arr  # Надо будет что-то придумать
 
     # return img_array # Надо будет что-то придумать
 

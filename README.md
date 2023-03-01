@@ -1,4 +1,4 @@
-<h1 align="center">Timofey (R) v.0.1.3 01.03.2023</h1>
+<h1 align="center">Timofey (R) v.0.1.4 01.03.2023</h1>
 <h3 align="center">Полносвязная нейронная сеть, распознающая цифры / Fully connected number recognition neural network</h3>
 <p align="center"><img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&amp;logo=TensorFlow&amp;logoColor=white" alt="TensorFlow"></p>
 <h2>Описание</h2>
