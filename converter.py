@@ -4,6 +4,7 @@
     (высококонтрастные черно-белые 28 на 28 пикселей)
 '''
 
+
 import numpy as np
 from PIL import Image, ImageOps
 
