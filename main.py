@@ -64,7 +64,7 @@ def main():
     train(model, x_train, x_test, y_train_cat, y_test_cat)
 
     # Тест
-    for i in range(1n,10):
+    for i in range(1,15):
         convert_im(f'images/raw/test_image{i}.jpg')
         im = Image.open('images/assets/test.jpg')
         data = np.array(im)
