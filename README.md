@@ -1,4 +1,4 @@
-<h1 align="center">Timofey (R) v.0.1.1 01.03.2023</h1>
+<h1 align="center">Timofey (R) v.0.1.3 01.03.2023</h1>
 <h3 align="center">Полносвязная нейронная сеть, распознающая цифры / Fully connected number recognition neural network</h3>
 <p align="center"><img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&amp;logo=TensorFlow&amp;logoColor=white" alt="TensorFlow"></p>
 <h2>Описание</h2>
@@ -25,6 +25,7 @@ Digit recognition using a neural network in Python is an important component of 
  </li>
  <li>Добавлена папка images для удобного и структурированного хранения изображений, используемых для обучения и подачи (images/raw) и для использования самой программой (images/assets);</li>
  <li>Переработана структура файла README.MD для удобного ознакомления;
-  <ul><li>Добавлены пункты "Описание" и "История версий".</li></ul>
+  <ul><li>Добавлены пункты "Описание" и "История версий";</li></ul>
+ <li>Переработана структура функции convert_im().</li>
 </li>
 </ul>

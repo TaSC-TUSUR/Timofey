@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image, ImageOps
 
 def convert_im(path):
-    n = 150
+    n = 150 #Ползунок для изменения вхождения чёрного
     img = Image.open(path)
     arr = np.array(img)
 
