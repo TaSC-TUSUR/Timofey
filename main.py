@@ -5,6 +5,7 @@ from keras.layers import Dense, Flatten
 from keras.datasets import mnist
 from pprint import pprint
 from PIL import Image
+from converter import convert_im
 
 def create_model():
 
@@ -64,14 +65,16 @@ def main():
     train(model, x_train, x_test, y_train_cat, y_test_cat)
 
     # Тест
-    im = Image.open('images/assets/test.jpg')
-    data = np.array(im)
-    x = np.expand_dims(data, axis=0)
-    res = model.predict(x)
-    print(res)
-    print('Я тут подумал, я те бля отвечаю это -', np.argmax(res))
-    plt.imshow(data, cmap=plt.cm.binary)
-    plt.show()
+    for i in range(1,7):
+        convert_im(f'images/raw/test_image{i}.jpg')
+        im = Image.open('images/assets/test.jpg')
+        data = np.array(im)
+        x = np.expand_dims(data, axis=0)
+        res = model.predict(x)
+        print(res)
+        print(f'Я тут подумал, я те бля отвечаю {i} это -', np.argmax(res))
+        plt.imshow(data, cmap=plt.cm.binary)
+        plt.show()
 
     return 0
 
