@@ -14,24 +14,24 @@ def convert_im(path):
 
     img = Image.open(path)
     arr = np.array(img)
-    im_ht = len(arr)
-    im_wt = len(arr[0])
+    ش = len(arr) #Высота
+    س = len(arr[0]) #Ширина
 
     # Мы блять надеемся на то, фон белый или серый, а у него соотношение цветов приерно одно и тоже,
     # Например r,g,b = 130 126 123 - это сероватый цвет максимальная разница 130-123 = 7, что немного
     # А у цвета r,g,b = 30 50 223 - это один из синих максимальная разница = 223-30 = 193, что дохуя
 
     aver_rgb_sum = 0
-    for i in range(im_ht):
-        for j in range(im_wt):
+    for i in range(ش):
+        for j in range(س):
             r, g, b = map(int, arr[i, j])
             aver_rgb_sum += r + g + b
 
-    aver_rgb_sum /= im_ht * im_wt * 3
+    aver_rgb_sum /= ش * س * 3
     τ = aver_rgb_sum
 
-    for i in range(im_ht):
-        for j in range(im_wt):
+    for i in range(ش):
+        for j in range(س):
             cur_sum = sum(arr[i, j])/3
             # if cur_sum < n:
             #     pass
@@ -44,7 +44,7 @@ def convert_im(path):
     img = ImageOps.invert(Image.fromarray(arr)).resize((28, 28))  # Делаем его 28*28 как в базе данных
     img = img.convert('L')  # Делаем чб
 
-    img.save('images/assets/test.jpg')
+    img.save('images/assets/active_test.jpg')
     arr = np.array(img)
     # print(arr)
     return arr  # Надо будет что-то придумать

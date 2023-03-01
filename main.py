@@ -64,9 +64,9 @@ def main():
     train(model, x_train, x_test, y_train_cat, y_test_cat)
 
     # Тест
-    for i in range(1,15):
-        convert_im(f'images/raw/test_image{i}.jpg')
-        im = Image.open('images/assets/test.jpg')
+    for i in range(0,10):
+        convert_im(f'images/raw/Basic/test_image{i}.jpg')#Исполнения конвертора в коде
+        im = Image.open('images/assets/active_test.jpg')
         data = np.array(im)
         ξ = np.expand_dims(data, axis=0)
         res = model.predict(ξ)
