@@ -1,6 +1,8 @@
-<h1 align="center">Timofey (R) v.0.1.9 01.03.2023</h1>
+<!-- Версию менять в бейджике (ссылка в заголовке ниже) -->
+<h1 align="center">Timofey® 01.03.2023 <img src="https://img.shields.io/badge/version-v0.1.8-blue" alt="version"></h1> 
 <h3 align="center">Полносвязная нейронная сеть, распознающая цифры / Fully connected number recognition neural network</h3>
-<p align="center"><img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&amp;logo=TensorFlow&amp;logoColor=white" alt="TensorFlow"></p>
+<p align="center"><img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&amp;logo=TensorFlow&amp;logoColor=white" alt="TensorFlow">
+<img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&amp;logo=Keras&amp;logoColor=white" alt="Keras"></p>
 <h2>Описание</h2>
 Распознавание цифр с помощью нейронной сети в Python — важная составляющая искусственного интеллекта. Это используется для распознавания изображений и текста, а также для машинного обучения, классификации объектов и предсказания будущих событий. В этой статье мы обсудим нейронные сети и подготовим нашу самую первую модель нейронной сети на Python для распознавания цифр. Для обучения нейронной сети мы будем использовать набор данных MNIST, содержащий изображения печатных цифр.
 <br><br>
