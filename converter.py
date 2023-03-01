@@ -52,4 +52,4 @@ def convert_im(path):
     # return img_array # Надо будет что-то придумать
 
 
-convert_im('images/raw/test_image3.jpg')
+convert_im('images/raw/test_image7.jpg')
