@@ -7,9 +7,10 @@
 import numpy as np
 from PIL import Image, ImageOps
 
+
 def convert_im(path):
-    n = 215 #Ползунок для изменения вхождения чёрного
-    τ = 45 # Допуск цвета
+    n = 70  # Ползунок для изменения вхождения чёрного
+    τ = 45  # Допуск цвета
 
     img = Image.open(path)
     arr = np.array(img)
@@ -24,26 +25,24 @@ def convert_im(path):
     for i in range(im_ht):
         for j in range(im_wt):
             r, g, b = map(int, arr[i, j])
-            aver_rgb_sum += r+g+b
+            aver_rgb_sum += r + g + b
 
-    aver_rgb_sum /= im_ht*im_wt
-
+    aver_rgb_sum /= im_ht * im_wt * 3
     τ = aver_rgb_sum
 
     for i in range(im_ht):
         for j in range(im_wt):
-            if abs(r - g) <= τ \
-                and abs(r - b) <= τ\
-                and abs(g - b) <= τ\
-                and sum(arr[i, j]) > n: # Проверим ещё черный цвет
-
-                    arr[i, j] = [255, 255, 255]
+            cur_sum = sum(arr[i, j])/3
+            # if cur_sum < n:
+            #     pass
+            if cur_sum > τ/1.7:
+                arr[i, j] = [255, 255, 255]
             else:
                 arr[i, j] = [0, 0, 0]
 
     arr = np.array(Image.fromarray(arr))
-    img = ImageOps.invert(Image.fromarray(arr)).resize((28, 28)) # Делаем его 28*28 как в базе данных
-    img = img.convert('L') # Делаем чб
+    img = ImageOps.invert(Image.fromarray(arr)).resize((28, 28))  # Делаем его 28*28 как в базе данных
+    img = img.convert('L')  # Делаем чб
 
     img.save('images/assets/test.jpg')
     arr = np.array(img)
@@ -52,4 +51,5 @@ def convert_im(path):
 
     # return img_array # Надо будет что-то придумать
 
-convert_im('images/raw/test_image2.jpg')
+
+convert_im('images/raw/test_image3.jpg')
