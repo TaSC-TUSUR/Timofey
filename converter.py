@@ -8,6 +8,7 @@ import numpy as np
 from PIL import Image, ImageOps
 
 def convert_im(path):
+    n = 150
     img = Image.open(path)
     arr = np.array(img)
 
@@ -20,7 +21,7 @@ def convert_im(path):
             if abs(r - g) <= 30 \
                 and abs(r - b) <= 30\
                 and abs(g - b) <= 30\
-                and sum(arr[i, j]) > 100: # Проверим ещё черный цвет
+                and sum(arr[i, j]) > n: # Проверим ещё черный цвет
 
                     arr[i, j] = [255, 255, 255]
             else:
