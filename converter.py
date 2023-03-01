@@ -10,7 +10,6 @@ from PIL import Image, ImageOps
 
 
 def convert_im(path):
-    n = 70  # Ползунок для изменения вхождения чёрного
     τ = 45  # Допуск цвета
 
     img = Image.open(path)

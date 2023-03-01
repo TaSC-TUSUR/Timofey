@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from tensorflow import keras
 from keras.layers import Dense, Flatten
 from keras.datasets import mnist
-from pprint import pprint
 from PIL import Image
 from converter import convert_im
 
