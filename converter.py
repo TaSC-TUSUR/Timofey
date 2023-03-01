@@ -34,4 +34,4 @@ def convert_im(path):
 
     # return img_array # Надо будет что-то придумать
 
-convert_im("images/raw/test_image1.jpg")
+convert_im('images/raw/test_image1.jpg')
