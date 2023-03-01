@@ -73,7 +73,7 @@ data = np.array(im)
 x = np.expand_dims(data, axis=0)
 res = model.predict(x)
 print(res)
-print(np.argmax(res))
+print("Я тут подумал, я те бля отвечаю это -",np.argmax(res))
 plt.imshow(data, cmap=plt.cm.binary)
 plt.show()
 # ----------------------------------------------------------
