@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image, ImageOps
 
 def convert_im(path):
-    n = 215 #Ползунок для изменения вхождения чёрного
+    η = 215 #Ползунок для изменения вхождения чёрного
     τ = 45 # Допуск цвета
 
     img = Image.open(path)
@@ -35,7 +35,7 @@ def convert_im(path):
             if abs(r - g) <= τ \
                 and abs(r - b) <= τ\
                 and abs(g - b) <= τ\
-                and sum(arr[i, j]) > n: # Проверим ещё черный цвет
+                and sum(arr[i, j]) > η: # Проверим ещё черный цвет
 
                     arr[i, j] = [255, 255, 255]
             else:
