@@ -18,6 +18,7 @@ Digit recognition using a neural network in Python is an important component of 
  <li>Конвентер (conventer.py) для перевода изображений в удобный для нейросети вид;
   <ul>
     <li>Переводит изображение в высококонтрастное чёрно-белое, после чего сохраняется отдельным файлом;</li>
+    <li>Переработана структура функции convert_im().</li>
   </ul>
  </li>
  <li>Главная программа (main.py);
@@ -28,6 +29,6 @@ Digit recognition using a neural network in Python is an important component of 
  <li>Добавлена папка images для удобного и структурированного хранения изображений, используемых для обучения и подачи (images/raw) и для использования самой программой (images/assets);</li>
  <li>Переработана структура файла README.MD для удобного ознакомления;
   <ul><li>Добавлены пункты "Описание" и "История версий";</li></ul>
- <li>Переработана структура функции convert_im().</li>
+  <li>Загруженно множество Assets (raw).</li>
 </li>
 </ul>
