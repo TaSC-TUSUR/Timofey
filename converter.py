@@ -50,6 +50,3 @@ def convert_im(path):
     return arr  # Надо будет что-то придумать
 
     # return img_array # Надо будет что-то придумать
-
-
-convert_im('images/raw/test_image7.jpg')
