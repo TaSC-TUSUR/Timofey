@@ -1,5 +1,5 @@
 <!-- Версию менять в бейджике (ссылка в заголовке ниже) -->
-<h1 align="center">Timofey® 03.03.2023 <img src="https://img.shields.io/badge/version-v0.1.16-blue" alt="version"></h1> 
+<h1 align="center">Timofey® 03.03.2023 <img src="https://img.shields.io/badge/version-v0.1.17-blue" alt="version"></h1> 
 <h3 align="center">Полносвязная нейронная сеть, распознающая цифры / Fully connected number recognition neural network</h3>
 <p align="center"><img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&amp;logo=TensorFlow&amp;logoColor=white" alt="TensorFlow">
 <img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&amp;logo=Keras&amp;logoColor=white" alt="Keras"></p>
@@ -13,7 +13,7 @@ Digit recognition using a neural network in Python is an important component of 
 <br>
 
 <h2>История версий</h2>
-<h3>Version 0.1.15</h3>
+<h3>Version 0.1.17</h3>
 <ul>
  <li>Конвентер (conventer.py) для перевода изображений в удобный для нейросети вид;
   <ul>
@@ -31,8 +31,8 @@ Digit recognition using a neural network in Python is an important component of 
     <ul>
         <li>Добавлены пункты "Описание" и "История версий";</li>
         <li>Нагружено множество Assets (raw).</li>
-        <li>Изменено количество нейронов (raw).</li>
-        <li>Добавлена функций переименовывания переменных.</li>
+        <li>Изменено количество нейроно, добавлен ещё один скрытый слой.</li>
+        <li>Добавлено сохранение модели.</li>
     </ul>
 </li>
 </ul>
