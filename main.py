@@ -20,7 +20,8 @@ def create_model():
     global model
     model = keras.Sequential([
         Flatten(input_shape=(28, 28, 1)),       # Входной слой
-        Dense(units=512, activation='relu'),     # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
+        Dense(units=1024, activation='relu'), # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
+        Dense(units=512, activation='relu'),
         Dense(units=10, activation='softmax')     # Выходной слой состоит из 10 нейронов, тк каждый отвечает за свою цифру
     ])
 
@@ -39,7 +40,7 @@ def train(model, x_train, x_test, y_train_cat, y_test_cat):
     # batch_size - количество картинок после которых коэффициенты будут пересмотрены.
     # epochs - количество эпох обучения
     # validation_split - выбор сколько % картинок пойдут на валидацию (они уйдут на evaluate)
-    model.fit(x_train, y_train_cat, batch_size=64, epochs=10, validation_split=0.2)
+    model.fit(x_train, y_train_cat, batch_size=16, epochs=10, validation_split=0.2)
     print("\n")
 
     # Валидация результата(проверка корректности)
@@ -48,7 +49,7 @@ def train(model, x_train, x_test, y_train_cat, y_test_cat):
     pass
 
 def main():
-
+    global model # Костыль чтобы не ругалось
     (x_train, y_train), (x_test, y_test) = mnist.load_data()  # Выгрузка баз данных мниста(70 000 рукописных цифр)
 
     x_train = x_train / 255  # Стандартизация данных, картинки у нас черно-белые,
@@ -61,11 +62,27 @@ def main():
     y_test_cat = keras.utils.to_categorical(y_test, 10)
 
     # Выполнение функций
-    create_model()
-    train(model, x_train, x_test, y_train_cat, y_test_cat)
+
+    # Проверка сохранённости модели
+    if (not os.path.exists('model/trained_model')):
+        print('-|| Модель не найдена, создаю новую...')
+        create_model()
+        print('-|| Модель cоздана')
+        print('-|| Обучаю модель...')
+        train(model, x_train, x_test, y_train_cat, y_test_cat)
+        print('-|| Модель обучена')
+        print('-|| Сохраняю модель...')
+        model.save('model/trained_model')
+        print('-|| Модель сохранена')
+    else:
+        print('-|| Модель найдена, загружаю...')
+        model = keras.models.load_model('model/trained_model')
+        print('-|| Модель загружена')
 
     # Тест
+    accuracy = np.array([0]*10)
     for i in range(0,10):
+        cnt_files = 0
         for filename in os.listdir(f'images/raw/{i}'):
             # convert_im(f'images/raw/1/test_image{i}.jpg')#Исполнения конвертора в коде
             convert_im(f'images/raw/{i}/{filename}')
@@ -74,10 +91,18 @@ def main():
             ξ = np.expand_dims(data, axis=0)
             res = model.predict(ξ)
             print(res)
-            print(f'Я тут подумал, я те бля отвечаю {i} это -', np.argmax(res))
+            print(f'Я тут подумал, я отвечаю {i} это -', np.argmax(res))
+
+            if(i == np.argmax(res)):
+                accuracy[i] += 1
+
+            cnt_files+=1
+
             plt.imshow(data, cmap=plt.cm.binary)
             plt.show()
 
+        accuracy[i] /= cnt_files
+    print(accuracy, np.mean(accuracy))
     return 0
 
 if __name__ == '__main__':
