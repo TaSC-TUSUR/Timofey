@@ -6,10 +6,18 @@
 
 
 import numpy as np
+import os
 from PIL import Image, ImageOps
 
 
+def rename_ims(directory):
+    i = 0
+    for filename in os.listdir(directory):
+        os.rename(f'{directory}/{filename}',f'{directory}/test_image{i}.jpg')
+        i+=1
+
 def convert_im(path):
+
     τ = 45  # Допуск цвета
 
     img = Image.open(path)

@@ -38,7 +38,7 @@ def train(model, x_train, x_test, y_train_cat, y_test_cat):
     # batch_size - количество картинок после которых коэффициенты будут пересмотрены.
     # epochs - количество эпох обучения
     # validation_split - выбор сколько % картинок пойдут на валидацию (они уйдут на evaluate)
-    model.fit(x_train, y_train_cat, batch_size=16, epochs=8, validation_split=0.2)
+    model.fit(x_train, y_train_cat, batch_size=64, epochs=10, validation_split=0.2)
     print("\n")
 
     # Валидация результата(проверка корректности)
@@ -65,7 +65,8 @@ def main():
 
     # Тест
     for i in range(1,7):
-        convert_im(f'images/raw/1/test_image{i}.jpg')#Исполнения конвертора в коде
+        # convert_im(f'images/raw/1/test_image{i}.jpg')#Исполнения конвертора в коде
+        convert_im(f'images/raw/1/test_image{i}.jpg')
         im = Image.open('images/assets/active_test.jpg')
         data = np.array(im)
         ξ = np.expand_dims(data, axis=0)
