@@ -1,4 +1,5 @@
 import numpy as np
+import os
 import matplotlib.pyplot as plt
 from tensorflow import keras
 from keras.layers import Dense, Flatten
@@ -64,17 +65,18 @@ def main():
     train(model, x_train, x_test, y_train_cat, y_test_cat)
 
     # Тест
-    for i in range(1,7):
-        # convert_im(f'images/raw/1/test_image{i}.jpg')#Исполнения конвертора в коде
-        convert_im(f'images/raw/1/test_image{i}.jpg')
-        im = Image.open('images/assets/active_test.jpg')
-        data = np.array(im)
-        ξ = np.expand_dims(data, axis=0)
-        res = model.predict(ξ)
-        print(res)
-        print(f'Я тут подумал, я те бля отвечаю {i} это -', np.argmax(res))
-        plt.imshow(data, cmap=plt.cm.binary)
-        plt.show()
+    for i in range(0,10):
+        for filename in os.listdir(f'images/raw/{i}'):
+            # convert_im(f'images/raw/1/test_image{i}.jpg')#Исполнения конвертора в коде
+            convert_im(f'images/raw/{i}/{filename}')
+            im = Image.open('images/assets/active_test.jpg')
+            data = np.array(im)
+            ξ = np.expand_dims(data, axis=0)
+            res = model.predict(ξ)
+            print(res)
+            print(f'Я тут подумал, я те бля отвечаю {i} это -', np.argmax(res))
+            plt.imshow(data, cmap=plt.cm.binary)
+            plt.show()
 
     return 0
 
