@@ -1,11 +1,19 @@
 import numpy as np
 import os
 import matplotlib.pyplot as plt
+import tensorflow
 from tensorflow import keras
-from keras.layers import Dense, Flatten
+from keras.layers import Dense, Flatten, Conv2D, Dropout,BatchNormalization
 from keras.datasets import mnist
 from PIL import Image
 from converter import convert_im
+
+# from tensorflow.python.client import device_lib
+print(tensorflow.config.list_physical_devices('GPU'))
+
+
+# model_path = 'model/trained_model_5k'
+model_path = 'model/trained_model'
 
 def create_model():
 
@@ -19,9 +27,14 @@ def create_model():
 
     global model
     model = keras.Sequential([
-        Flatten(input_shape=(28, 28, 1)),       # Входной слой
-        Dense(units=1024, activation='relu'), # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
-        Dense(units=512, activation='relu'),
+        #Flatten(input_shape=(28, 28, 1)),       # Входной слой
+        Conv2D(28, kernel_size=(3, 3), activation='relu', input_shape=(28,28,1)),
+        Conv2D(56, kernel_size=(3, 3), activation='relu'),
+        Conv2D(112, kernel_size=(3, 3), activation='relu'),
+        BatchNormalization(),
+        Flatten(),
+        Dense(units=128, activation='relu'), # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
+        Dropout(0.2),
         Dense(units=10, activation='softmax')     # Выходной слой состоит из 10 нейронов, тк каждый отвечает за свою цифру
     ])
 
@@ -40,7 +53,7 @@ def train(model, x_train, x_test, y_train_cat, y_test_cat):
     # batch_size - количество картинок после которых коэффициенты будут пересмотрены.
     # epochs - количество эпох обучения
     # validation_split - выбор сколько % картинок пойдут на валидацию (они уйдут на evaluate)
-    model.fit(x_train, y_train_cat, batch_size=16, epochs=10, validation_split=0.2)
+    model.fit(x_train, y_train_cat, batch_size=32, epochs=10, validation_split=0.2)
     print("\n")
 
     # Валидация результата(проверка корректности)
@@ -49,7 +62,7 @@ def train(model, x_train, x_test, y_train_cat, y_test_cat):
     pass
 
 def main():
-    global model # Костыль чтобы не ругалось
+    global model , model_path# Костыль чтобы не ругалось
     (x_train, y_train), (x_test, y_test) = mnist.load_data()  # Выгрузка баз данных мниста(70 000 рукописных цифр)
 
     x_train = x_train / 255  # Стандартизация данных, картинки у нас черно-белые,
@@ -64,7 +77,7 @@ def main():
     # Выполнение функций
 
     # Проверка сохранённости модели
-    if (not os.path.exists('model/trained_model')):
+    if (not os.path.exists(model_path)):
         print('-|| Модель не найдена, создаю новую...')
         create_model()
         print('-|| Модель cоздана')
@@ -72,15 +85,15 @@ def main():
         train(model, x_train, x_test, y_train_cat, y_test_cat)
         print('-|| Модель обучена')
         print('-|| Сохраняю модель...')
-        model.save('model/trained_model')
+        model.save(model_path)
         print('-|| Модель сохранена')
     else:
         print('-|| Модель найдена, загружаю...')
-        model = keras.models.load_model('model/trained_model')
+        model = keras.models.load_model(model_path)
         print('-|| Модель загружена')
 
     # Тест
-    accuracy = np.array([0]*10)
+    accuracy = np.array([0.0]*10)
     for i in range(0,10):
         cnt_files = 0
         for filename in os.listdir(f'images/raw/{i}'):
@@ -90,20 +103,24 @@ def main():
             data = np.array(im)
             ξ = np.expand_dims(data, axis=0)
             res = model.predict(ξ)
-            print(res)
-            print(f'Я тут подумал, я отвечаю {i} это -', np.argmax(res))
+
 
             if(i == np.argmax(res)):
                 accuracy[i] += 1
+            else:
+                print(res)
+                print(f'Я тут подумал, я отвечаю {i} это -', np.argmax(res))
+                plt.imshow(data, cmap=plt.cm.binary, label=str(np.argmax(res)))
+                plt.show()
 
             cnt_files+=1
 
-            plt.imshow(data, cmap=plt.cm.binary)
-            plt.show()
 
-        accuracy[i] /= cnt_files
+        accuracy[i] /= (cnt_files)
+    print('Я всё посчитал, таков итог')
     print(accuracy, np.mean(accuracy))
     return 0
 
 if __name__ == '__main__':
     main()
+    pass

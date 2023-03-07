@@ -8,13 +8,21 @@
 import numpy as np
 import os
 from PIL import Image, ImageOps
-
-
+import re
 def rename_ims(directory):
     i = 0
     for filename in os.listdir(directory):
-        os.rename(f'{directory}/{filename}',f'{directory}/test_image{i}.jpg')
-        i+=1
+        os.rename(f'{directory}/{filename}',f'{directory}/{i}-temp.jpg')
+        i += 1
+    i = 0
+    for filename in os.listdir(directory):
+            os.rename(f'{directory}/{filename}',f'{directory}/test_image{i}.jpg')
+            i+=1
+    print(f"Renamed {directory} done")
+
+for i in range(0, 10):
+    rename_ims(f'images/raw/{i}')
+rename_ims(f'images/raw/hueta')
 
 def convert_im(path):
 
