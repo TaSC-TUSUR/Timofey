@@ -54,7 +54,7 @@ Digit recognition using a neural network in Python is an important component of 
 <br>
 
 <h2>Лицензия</h2>
-  <a href="https://github.com/tensorflow/tensorflow/blob/master/LICENSE" target="_blank">
+  <a href="https://github.com/TaSC-TUSUR/Timofey/blob/main/LICENSE" target="_blank">
         Apache License 2.0
       </a>
 
