@@ -1,5 +1,5 @@
 <!-- Версию менять в бейджике (ссылка в заголовке ниже) -->
-<h1 align="center">Timofey® 07.03.2023 <img src="https://img.shields.io/badge/version-v0.2.2-blue" alt="version"></h1> 
+<h1 align="center">Timofey® 16.03.2023 <img src="https://img.shields.io/badge/version-v0.2.3-blue" alt="version"></h1> 
 <h3 align="center">Полносвязная нейронная сеть, распознающая цифры / Fully connected number recognition neural network</h3>
 <p align="center"><img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&amp;logo=TensorFlow&amp;logoColor=white" alt="TensorFlow">
 <img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&amp;logo=Keras&amp;logoColor=white" alt="Keras"></p>
@@ -54,7 +54,7 @@ Digit recognition using a neural network in Python is an important component of 
 <br>
 
 <h2>Лицензия</h2>
-  <a href="https://github.com/TaSC-TUSUR/Timofey/blob/main/LICENSE" target="_blank">
+  <a href="https://github.com/TaSC-TUSUR/Timofey/blob/master/LICENSE" target="_blank">
         Apache License 2.0
       </a>
 

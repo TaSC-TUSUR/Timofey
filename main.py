@@ -16,21 +16,22 @@ print(tensorflow.config.list_physical_devices('GPU'))
 model_path = 'model/trained_model'
 
 def create_model():
-
-    # Создаем модель нейросети, где
-    # *слово Sequential означает последовательную(то есть состоящую из нескольких слоёв)
-    #
-    # *Flatten преобразует матрицу(нашу картинку) размером 28 на 28 и, имеющую черно-белую цветовую схему, в один слой,
-    #   состоящий из (28*28) = 784 нейронов (можно забить хуй)
-    #
-    # *Dense создает новый слой, где units - кол-во нейронов, activation - метод активации
+    '''
+    Создаем модель нейросети, где
+    *слово Sequential означает последовательную(то есть состоящую из нескольких слоёв)
+    
+    *Flatten преобразует матрицу(нашу картинку) размером 28 на 28 и, имеющую черно-белую цветовую схему, в один слой,
+    состоящий из (28*28) = 784 нейронов (можно забить хуй)
+    
+    *Dense создает новый слой, где units - кол-во нейронов, activation - метод активации
+    '''
 
     global model
     model = keras.Sequential([
         #Flatten(input_shape=(28, 28, 1)),       # Входной слой
-        Conv2D(28, kernel_size=(3, 3), activation='relu', input_shape=(28,28,1)),
-        Conv2D(56, kernel_size=(3, 3), activation='relu'),
-        Conv2D(112, kernel_size=(3, 3), activation='relu'),
+        Conv2D(28, kernel_size=(3, 3), activation='relu', input_shape=(28,28,1)), # Входной и скрытый слой
+        Conv2D(56, kernel_size=(3, 3), activation='relu'), # Скрытый слой(тут происходит вся магия, однако продвинутая)
+        Conv2D(112, kernel_size=(3, 3), activation='relu'), # Скрытый слой(тут происходит вся магия, однако продвинутая)
         BatchNormalization(),
         Flatten(),
         Dense(units=128, activation='relu'), # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
@@ -46,15 +47,17 @@ def create_model():
     return model
 
 def train(model, x_train, x_test, y_train_cat, y_test_cat):
-
-    # Запуск процесса обучения.
-    # x_train - множество на котором тренируем.
-    # y_train_cat - ожидаемый результат (который хотим получить).
-    # batch_size - количество картинок после которых коэффициенты будут пересмотрены.
-    # epochs - количество эпох обучения
-    # validation_split - выбор сколько % картинок пойдут на валидацию (они уйдут на evaluate)
-    model.fit(x_train, y_train_cat, batch_size=32, epochs=10, validation_split=0.2)
+    '''
+    Запуск процесса обучения.
+    x_train - множество на котором тренируем.
+    y_train_cat - ожидаемый результат (который хотим получить).
+    batch_size - количество картинок после которых коэффициенты будут пересмотрены.
+    epochs - количество эпох обучения
+    validation_split - выбор сколько % картинок пойдут на валидацию (они уйдут на evaluate)
+    '''
+    model.fit(x_train, y_train_cat, batch_size=32, epochs=5, validation_split=0.2)
     print("\n")
+    
 
     # Валидация результата(проверка корректности)
     model.evaluate(x_test, y_test_cat)
