@@ -18,12 +18,12 @@ model_path = 'model/trained_model'
 def create_model():
     '''
     Создаем модель нейросети, где
-    *слово Sequential означает последовательную(то есть состоящую из нескольких слоёв)
+    *слово "Sequential" означает "последовательная" (то есть состоящая из нескольких слоёв)
     
     *Flatten преобразует матрицу(нашу картинку) размером 28 на 28 и, имеющую черно-белую цветовую схему, в один слой,
-    состоящий из (28*28) = 784 нейронов (можно забить хуй)
+    состоящий из (28*28) = 784 нейронов (можно оставить так)
     
-    *Dense создает новый слой, где units - кол-во нейронов, activation - метод активации
+    *Dense создает новый слой, где units — кол-во нейронов, activation — метод активации
     '''
 
     global model
@@ -34,15 +34,15 @@ def create_model():
         Conv2D(112, kernel_size=(3, 3), activation='relu'), # Скрытый слой(тут происходит вся магия, однако продвинутая)
         BatchNormalization(),
         Flatten(),
-        Dense(units=128, activation='relu'), # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
+        Dense(units=128, activation='relu'), # Скрытый слой(тут происходит вся магия) 128 — число наугад, можно ставить разные
         Dropout(0.2),
-        Dense(units=10, activation='softmax')     # Выходной слой состоит из 10 нейронов, тк каждый отвечает за свою цифру
+        Dense(units=10, activation='softmax')     # Выходной слой состоит из 10 нейронов, т.к. каждый нейрон отвечает за свою цифру
     ])
 
     # Компиляция модели
     # loss - критерий качества
     # optimizer - говорит сам за себя, оптимизируем нейросеть
-    # метрика - метрика(определяем насколько мы правильно в % предсказали цифры)
+    # метрика - метрика(определяем, насколько мы правильно в % предсказали цифры)
     model.compile(loss='categorical_crossentropy', optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
     return model
 
@@ -65,13 +65,13 @@ def train(model, x_train, x_test, y_train_cat, y_test_cat):
     pass
 
 def main():
-    global model , model_path# Костыль чтобы не ругалось
+    global model, model_path # Костыль, чтобы программа не ругалась
     (x_train, y_train), (x_test, y_test) = mnist.load_data()  # Выгрузка баз данных мниста(70 000 рукописных цифр)
 
     x_train = x_train / 255  # Стандартизация данных, картинки у нас черно-белые,
     x_test = x_test / 255  # поэтому данные мы будем хранить как 0-черный, 1-белый
 
-    # Далее мы записываем каждую цифру как массив из десяти
+    # Далее мы записываем каждую цифру как массив из десяти элементов
     # Например цифру 4 как [0,0,0,0,1,0,0,0,0,0]
     #              а 6 как [0,0,0,0,0,0,1,0,0,0]
     y_train_cat = keras.utils.to_categorical(y_train, 10)
@@ -100,7 +100,7 @@ def main():
     for i in range(0,10):
         cnt_files = 0
         for filename in os.listdir(f'images/raw/{i}'):
-            # convert_im(f'images/raw/1/test_image{i}.jpg')#Исполнения конвертора в коде
+            # convert_im(f'images/raw/1/test_image{i}.jpg') #Исполнения конвертора в коде
             convert_im(f'images/raw/{i}/{filename}')
             im = Image.open('images/assets/active_test.jpg')
             data = np.array(im)
@@ -112,7 +112,7 @@ def main():
                 accuracy[i] += 1
             else:
                 print(res)
-                print(f'Я тут подумал, я отвечаю {i} это -', np.argmax(res))
+                print(f'Я тут подумал, я отвечаю, что {i} это ', np.argmax(res))
                 plt.imshow(data, cmap=plt.cm.binary, label=str(np.argmax(res)))
                 plt.show()
 
