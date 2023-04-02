@@ -6,14 +6,14 @@ from tensorflow import keras
 from keras.layers import Dense, Flatten, Conv2D, Dropout,BatchNormalization
 from keras.datasets import mnist
 from PIL import Image
-from converter import convert_im
-
+from converter import imageprepare
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 # from tensorflow.python.client import device_lib
 print(tensorflow.config.list_physical_devices('GPU'))
 
 
 # model_path = 'model/trained_model_5k'
-model_path = 'model/trained_model'
+model_path = 'model/trained_model_pasha'
 
 def create_model():
     '''
@@ -27,16 +27,9 @@ def create_model():
     '''
 
     global model
-    model = keras.Sequential([
-        #Flatten(input_shape=(28, 28, 1)),       # Входной слой
-        Conv2D(28, kernel_size=(3, 3), activation='relu', input_shape=(28,28,1)), # Входной и скрытый слой
-        Conv2D(56, kernel_size=(3, 3), activation='relu'), # Скрытый слой(тут происходит вся магия, однако продвинутая)
-        Conv2D(112, kernel_size=(3, 3), activation='relu'), # Скрытый слой(тут происходит вся магия, однако продвинутая)
-        BatchNormalization(),
-        Flatten(),
-        Dense(units=128, activation='relu'), # Скрытый слой(тут происходит вся магия) 128 — число наугад, можно ставить разные
-        Dropout(0.2),
-        Dense(units=10, activation='softmax')     # Выходной слой состоит из 10 нейронов, т.к. каждый нейрон отвечает за свою цифру
+    model = keras.Sequential([Flatten(input_shape=(28, 28, 1)),       # Входной слой
+        Dense(units=128, activation='relu'),     # Скрытый слой(тут происходит вся магия) 128 число наугад, можно ставить разные
+        Dense(units=10, activation='softmax')
     ])
 
     # Компиляция модели
@@ -100,21 +93,31 @@ def main():
     for i in range(0,10):
         cnt_files = 0
         for filename in os.listdir(f'images/raw/{i}'):
-            # convert_im(f'images/raw/1/test_image{i}.jpg') #Исполнения конвертора в коде
-            convert_im(f'images/raw/{i}/{filename}')
-            im = Image.open('images/assets/active_test.jpg')
-            data = np.array(im)
-            ξ = np.expand_dims(data, axis=0)
-            res = model.predict(ξ)
+            # convert_im(f'images/raw/1/test_image{i}.jpg')             #Старый конвектор (фиг пойми как изменённый)
+            # convert_im(f'images/raw/{i}/{filename}')
+            # im = Image.open('images/assets/active_test2.jpg')
+            # data = np.array(im)
+            # ξ = np.expand_dims(data, axis=0)
 
+            x = [imageprepare(f'images/raw/{i}/{filename}')]  # file path here
+            newArr = [[0 for d in range(28)] for y in range(28)]
+            k = 0
+            for ni in range(28):
+                for j in range(28):
+                    newArr[ni][j] = x[0][k]
+                    k += 1
+            ξ = np.expand_dims(newArr, axis=0)
+
+            res = model.predict(ξ)
 
             if(i == np.argmax(res)):
                 accuracy[i] += 1
             else:
                 print(res)
                 print(f'Я тут подумал, я отвечаю, что {i} это ', np.argmax(res))
-                plt.imshow(data, cmap=plt.cm.binary, label=str(np.argmax(res)))
-                plt.show()
+                # plt.imshow(data, cmap=plt.cm.binary, label=str(np.argmax(res)))   # Строчка старого конвектора
+                plt.imshow(newArr, cmap=plt.cm.binary, label=str(np.argmax(res)))
+                # plt.show()
 
             cnt_files+=1
 
