@@ -1,5 +1,5 @@
 <!-- Версию менять в бейджике (ссылка в заголовке ниже) -->
-<h1 align="center">Timofey® 22.03.2023 <img src="https://img.shields.io/badge/version-v0.2.4-blue" alt="version"></h1> 
+<h1 align="center">Timofey® 02.04.2023 <img src="https://img.shields.io/badge/version-v0.2.5-blue" alt="version"></h1> 
 <h3 align="center">Полносвязная нейронная сеть, распознающая цифры / Fully connected number recognition neural network</h3>
 <p align="center"><img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&amp;logo=TensorFlow&amp;logoColor=white" alt="TensorFlow">
 <img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&amp;logo=Keras&amp;logoColor=white" alt="Keras"></p>
